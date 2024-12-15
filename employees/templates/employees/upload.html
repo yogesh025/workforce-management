@@ -1,0 +1,30 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Upload Employees</h1>
+    <p>Upload a CSV file to add or update employees in the system.</p>
+    
+    <!-- Form to upload CSV file -->
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Upload</button>
+    </form>
+
+    <!-- Display success/error messages -->
+    {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li class="{{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <!-- Add helpful instructions for the user -->
+    <h3>Instructions:</h3>
+    <ul>
+        <li>Ensure the CSV file has the following headers: <strong>email, first_name, last_name, role</strong>.</li>
+        <li>The "role" field must match one of these values: <em>admin, manager, employee</em>.</li>
+        <li>Upload only valid CSV files.</li>
+    </ul>
+{% endblock %}
